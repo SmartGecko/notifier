@@ -6,7 +6,8 @@ module.exports = {
 
 		async.parallel([
 			startHttpServer,
-			startAgendaServer
+			startAgendaServer,
+            startAmqpServer
 		], callback);
 
 		function startHttpServer(callback) {
@@ -16,5 +17,9 @@ module.exports = {
 		function startAgendaServer(callback) {
 			notifier._jobs.start(callback);
 		}
+
+        function startAmqpServer(callback) {
+            notifier._subscription.listen(callback);
+        }
 	}
 };

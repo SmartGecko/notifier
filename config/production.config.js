@@ -1,6 +1,27 @@
+function mongoUrl(database) {
+
+    function authString() {
+        return (process.env.MONGO_LOGIN && process.env.MONGO_PASSWORD) ?
+        process.env.MONGO_LOGIN + ':' + process.env.MONGO_PASSWORD + '@' : '';
+    }
+
+    return 'mongodb://' + authString() + (process.env.MONGO_PORT_27017_TCP_ADDR || 'localhost') + ':' +
+        (process.env.MONGO_PORT_27017_TCP_PORT || '27017') + '/' + database;
+}
+
 var config = {
-	connection: process.env.MONGO_CONNECTION,
+	connection: mongoUrl('notifier'),
 	accessToken: process.env.ACCESS_TOKEN,
+
+    amqp: {
+        host: process.env.AMQP_PORT_5672_TCP_ADDR,
+        port: process.env.AMQP_PORT_5672_TCP_PORT,
+        login: process.env.AMQP_LOGIN,
+        password: process.env.AMQP_PASSWORD,
+        vhost: '/',
+        exchange: 'Notifier.Exchange.Sync',
+        queue: 'Notifier.Queue.Sync'
+    },
 
 	logentries: {
 		token: process.env.LOGENTRIES_TOKEN
@@ -12,13 +33,11 @@ var config = {
 	},
 
 	transport: {
-		mandrill: {
-			token: process.env.MANDRILL_TOKEN
-		},
-		twilio : {
-			accountSid: process.env.TWILIO_ACCOUNT_SID,
-			authToken: process.env.TWILIO_ACCOUNT_TOKEN
-		},
+        ses: {
+            accessKeyId: process.env.AMAZON_ACCESS_ID,
+            secretAccessKey: process.env.AMAZON_ACCESS_SECRET,
+            region: process.env.AMAZON_REGION
+        },
 		gcm : {
 			serverApiKey: process.env.GOOGLE_SERVER_API_KEY
 		},
@@ -35,7 +54,15 @@ var config = {
 		},
 
 		collection: 'notifierJobs'
-	}
+	},
+
+    services: {
+        'AccountsService': {
+            host: process.env.ACCOUNTS_PORT_9090_TCP_ADDR,
+            port: process.env.ACCOUNTS_PORT_9090_TCP_PORT,
+            path: '/accounts'
+        }
+    }
 };
 
 module.exports = config;

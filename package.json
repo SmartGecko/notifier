@@ -26,20 +26,24 @@
   "homepage": "https://github.com/likeastore/notifier",
   "dependencies": {
     "agenda": "~0.6.4",
+    "amqp": "^0.2",
     "apn": "^1.6.0",
     "async": "~0.7.0",
+    "aws-sdk": "^2.1.28",
     "colors": "~0.6.2",
+    "email-templates": "^1.2.1",
     "express": "~3.5.1",
+    "jade": "^1.9.2",
     "moment": "~2.6.0",
     "mongojs": "~0.11.0",
     "node-gcm": "^0.9.12",
     "node-logentries": "~0.1.4",
-    "node-mandrill": "^1.0.1",
     "postal": "~0.9.0-rc1",
     "request": "~2.21.0",
     "respawn": "~0.3.1",
-    "twilio": "^1.6.0",
-    "underscore": "~1.4.4"
+    "sg-event-bus": "git+ssh://git@bitbucket.org:smartgecko/smartgeckojseventbus.git",
+    "underscore": "~1.4.4",
+    "sg-domain-sdk-js": "git+ssh://git@bitbucket.org/smartgecko/sg-domain-sdk-js.git"
   },
   "engines": {
     "node": "0.10.x"
