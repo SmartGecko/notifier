@@ -63,8 +63,8 @@ var config = {
             path: '/accounts'
         },
         'BusinessService': {
-            host: process.env.BUSINESS_PORT_9090_TCP_ADDR,
-            port: process.env.BUSINESS_PORT_9090_TCP_PORT,
+            host: process.env.BUSINESS_PORT_80_TCP_ADDR,
+            port: process.env.BUSINESS_PORT_80_TCP_PORT,
             path: '/business'
         }
     }
