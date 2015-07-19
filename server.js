@@ -3,7 +3,6 @@ var SmartGecko = require('./SmartGecko');
 
 notifier
     .receive('SmartGecko.Domain.Business.Api.Event.BusinessRegisteredEvent', function (event, actions, callback) {
-        console.log(event);
         actions.create('send-business-registration-email', {event: event}, callback);
     })
     .resolve('send-business-registration-email', function (action, actions, callback) {
@@ -37,7 +36,10 @@ notifier
         var businessService = SmartGecko.Client.getBusinessService();
         var accountsService = SmartGecko.Client.getAccountsService();
 
-        businessService.getEmployeeAccountIdentifier(action.event.payload.recipientIdentifier, function (err, accountId) {
+        var ctx = SmartGecko.Client.contextBuilder(action.event.messageIdentifier)
+            .build();
+
+        businessService.getEmployeeAccountIdentifier(ctx, action.event.payload.recipientIdentifier, function (err, accountId) {
             if (err)
                 return callback(err);
 
